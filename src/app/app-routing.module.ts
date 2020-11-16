@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AsideAndContentComponent } from './aside-and-content/aside-and-content.component';
-import{MineSweeperComponent}from './mine-sweeper/mine-sweeper.component';
+import { LoginComponent } from './login/login.component';
+import { MineSweeperComponent } from './mine-sweeper/mine-sweeper.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
   { path: '', component: AsideAndContentComponent },
-  { path: 'minesweeper', component: MineSweeperComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: 'minesweeper', component: MineSweeperComponent },
   { path: '**', component: AsideAndContentComponent },
 ];
 

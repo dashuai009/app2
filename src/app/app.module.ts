@@ -17,6 +17,8 @@ import { MineSweeperComponent } from './mine-sweeper/mine-sweeper.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import {FormsModule} from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import {FormsModule} from '@angular/forms';
     HeaderComponent,
     AsideAndContentComponent,
     FootComponent,
-    MineSweeperComponent
+    MineSweeperComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

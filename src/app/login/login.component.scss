@@ -1,0 +1,23 @@
+.demo-section {
+    width: 400px;
+    margin: 0 auto;
+    & > div {
+      width: 450px;
+    }
+  
+    & > h5:not(:first-child) {
+      margin-top: 36px;
+    }
+  
+    & > div {
+      margin-top: 16px;
+    }
+  
+    form {
+      margin-left: 10px;
+    }
+  }
+  
+  .demo-section:not(:first-child) {
+    margin-top: 40px;
+  }
