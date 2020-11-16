@@ -1,0 +1,10 @@
+@import "~ng-devui/styles-var/devui-var.scss";
+
+.basic-usage {
+    //box-shadow: $hwc-shadow-5; // TODO: color not variable
+    margin-top: 36px;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
