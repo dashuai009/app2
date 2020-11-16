@@ -1,0 +1,15 @@
+@import '~ng-devui/styles-var/devui-var.scss';
+
+d-layout {
+  background-color: $devui-base-bg;
+}
+
+d-footer {
+  color: $devui-light-text;
+  background-color: $devui-base-bg-dark;
+  padding: 9px 24px;
+}
+
+table{
+  background-color: $devui-base-bg-dark;
+}
