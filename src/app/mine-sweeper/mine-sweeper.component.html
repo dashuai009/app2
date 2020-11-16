@@ -15,13 +15,19 @@
       <d-form-item>
         <d-form-label>行数</d-form-label>
         <d-form-control>
-          <d-input-number [disabled]="formData.radioValue.id!=4"></d-input-number>
+          <d-input-number [disabled]="formData.radioValue.id!=4" [(ngModel)]="radioOptions[3].X" [ngModelOptions]="{standalone: true}"></d-input-number>
         </d-form-control>
       </d-form-item>
       <d-form-item>
         <d-form-label>列数</d-form-label>
         <d-form-control>
-          <d-input-number [disabled]="formData.radioValue.id!=4"></d-input-number>
+          <d-input-number [disabled]="formData.radioValue.id!=4"  [(ngModel)]="radioOptions[3].Y" [ngModelOptions]="{standalone: true}"></d-input-number>
+        </d-form-control>
+      </d-form-item>
+      <d-form-item>
+        <d-form-label>雷数</d-form-label>
+        <d-form-control>
+          <d-input-number [disabled]="formData.radioValue.id!=4"  [(ngModel)]="radioOptions[3].L" [ngModelOptions]="{standalone: true}"></d-input-number>
         </d-form-control>
       </d-form-item>
       <d-form-operation>
@@ -30,5 +36,6 @@
         <d-button bsStyle="common" circled="true">取消</d-button>
       </d-form-operation>
     </form>
+    
   </div>
 </d-content>

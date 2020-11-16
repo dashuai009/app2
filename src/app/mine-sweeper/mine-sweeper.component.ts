@@ -14,41 +14,31 @@ export class MineSweeperComponent implements OnInit {
   valueX = 9;
   valueY = 18;
 
-  selectOptions = [{
-    id: 1,
-    label: "简单：7行7列，10颗雷~"
-  }, {
-    id: 2,
-    label: "中等：14行14列，30颗雷~~"
-  }, {
-    id: 3,
-    label: "复杂：20行20列，50颗雷~~~"
-  }, {
-    id: 4,
-    label: "自定义：5~73行5~73列，1~73*73颗雷~~~"
-  }];
 
   radioOptions = [{
     id: 1,
     label: "简单",
-    msg: "简单：7行7列，10颗雷~"
+    msg: "简单：7行7列，10颗雷~",
+    X: 7, Y: 7, L: 10
   }, {
     id: 2,
     label: "中等",
-    msg:"中等：14行14列，30颗雷~~"
+    msg: "中等：14行14列，30颗雷~~",
+    X: 14, Y: 14, L: 30
   }, {
     id: 3,
     label: "复杂",
-    msg: "复杂：20行20列，50颗雷~~~"
+    msg: "复杂：20行20列，50颗雷~~~",
+    X: 20, Y: 20, L: 50
   }, {
     id: 4,
     label: "自选！",
-    msg: "自定义：5~73行5~73列，1~73*73颗雷~~~"
+    msg: "自定义：5~73行5~73列，1~73*73颗雷~~~",
+    X: 10, Y: 10, L: 20
+
   }];
   formData = {
-    selectValue: this.selectOptions[1],
-
-    radioValue:this.radioOptions[0]
+    radioValue: this.radioOptions[0]
   };
   constructor(
     private route: ActivatedRoute,
@@ -57,9 +47,9 @@ export class MineSweeperComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  gogogo(){
+  gogogo() {
     console.log(this.formData);
-    console.log(this.formData.radioValue.id===4);
+    console.log(this.formData.radioValue.id === 4);
   }
 
 }
