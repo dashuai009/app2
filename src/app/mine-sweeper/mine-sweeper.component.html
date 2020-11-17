@@ -15,19 +15,22 @@
       <d-form-item>
         <d-form-label>行数</d-form-label>
         <d-form-control>
-          <d-input-number [disabled]="formData.radioValue.id!=4" [(ngModel)]="radioOptions[3].X" [ngModelOptions]="{standalone: true}"></d-input-number>
+          <d-input-number [min]="minVal" [max]="maxVal" [disabled]="formData.radioValue.id!=4"
+            [(ngModel)]="radioOptions[3].X" [ngModelOptions]="{standalone: true}"></d-input-number>
         </d-form-control>
       </d-form-item>
       <d-form-item>
         <d-form-label>列数</d-form-label>
         <d-form-control>
-          <d-input-number [disabled]="formData.radioValue.id!=4"  [(ngModel)]="radioOptions[3].Y" [ngModelOptions]="{standalone: true}"></d-input-number>
+          <d-input-number [min]="minVal" [max]="maxVal" [disabled]="formData.radioValue.id!=4"
+            [(ngModel)]="radioOptions[3].Y" [ngModelOptions]="{standalone: true}"></d-input-number>
         </d-form-control>
       </d-form-item>
       <d-form-item>
         <d-form-label>雷数</d-form-label>
         <d-form-control>
-          <d-input-number [disabled]="formData.radioValue.id!=4"  [(ngModel)]="radioOptions[3].L" [ngModelOptions]="{standalone: true}"></d-input-number>
+          <d-input-number [min]="minVal" [max]="maxVal" [disabled]="formData.radioValue.id!=4"
+            [(ngModel)]="radioOptions[3].L" [ngModelOptions]="{standalone: true}"></d-input-number>
         </d-form-control>
       </d-form-item>
       <d-form-operation>
@@ -36,6 +39,22 @@
         <d-button bsStyle="common" circled="true">取消</d-button>
       </d-form-operation>
     </form>
-    
+    <div>
+      <span class="text">{{formData.radioValue.X}}</span>
+      <span class="text">{{formData.radioValue.Y}}</span>
+    </div>
+
+    <table>
+      <ng-container *ngFor="let rowItem of myMap;let i=index">
+        <tr *ngIf="i<formData.radioValue.X">
+          <ng-container *ngFor="let it of rowItem;let j=index">
+            <td *ngIf="j<formData.radioValue.Y">
+              <d-button bsStyle='primary' bsSize='sm' [width]="12" X=`{{i}}` Y=`{{j}}`
+                (btnClick)="mine(i,j)">{{it}}</d-button>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </table>
   </div>
 </d-content>
