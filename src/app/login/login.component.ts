@@ -3,6 +3,9 @@ import { of, Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { DValidateRules } from 'ng-devui/form';
 import { ConnectService } from '../connect.service';
+import * as myhaha from '../hash2.js';
+
+
 
 @Component({
   selector: 'app-login',
@@ -11,7 +14,7 @@ import { ConnectService } from '../connect.service';
 })
 export class LoginComponent implements OnInit {
   constructor(
-    private mineHttp: ConnectService
+    private mineHttp: ConnectService,
   ) { }
 
   ngOnInit(): void {
@@ -60,9 +63,11 @@ export class LoginComponent implements OnInit {
     // do something for submitting
     if (valid) {
       console.log(this.formData);
-      this.mineHttp.logIn(this.formData.userName, this.formData.password).subscribe((res) => {
+      console.log(myhaha.sha256_digest(this.formData.password));
+      this.mineHttp.logIn(this.formData.userName, myhaha.sha256_digest(this.formData.password)).subscribe((res) => {
         console.log(res);
         if (res.status === 'success') {
+
           this.showToast('success', '成功', '登陆成功');
         }else if(res.status === 'fail'){
           this.showToast('warn', '失败', res.msg);
