@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { TableWidthConfig } from 'ng-devui/data-table';
-import { FormControl } from '@angular/forms';
 import { ConnectService } from '../connect.service';
+import { BrowserModule } from '@angular/platform-browser';
+
+import '../../assets/Digit0.svg'; 
 
 
 @Component({
@@ -12,84 +13,16 @@ import { ConnectService } from '../connect.service';
   styleUrls: ['./mine-sweeper.component.scss']
 })
 
-/**
- * @author 杨松恺
- * @date 2018-12-05 15:45:08
- * 定义二维数组，提供相关操作
- */
-/*
-class My2DArray {
-  private my2DArray: Array<Array<number>> = new Array<Array<number>>();
-  private rows: number;
-  private columns: number;
-
- 
-   初始化数组
-
-  public constructor(rows: number, columns: number, value: number) {
-    this.rows = rows;
-    this.columns = columns;
-    this.initRows(rows);
-    this.initColumns(columns, value);
-  }
- 
-   取数组中的值
-   
-  public getValue(rows: number, columns: number): number {
-    if (rows < 0 || columns < 0 || rows >= this.rows || columns >= this.columns) {
-      return null;
-    }
-    return this.my2DArray[rows][columns];
-  }
- 
- 为数组赋值
- 
-  public setValue(rows: number, columns: number, value: number): void {
-    if (rows < 0 || columns < 0 || rows >= this.rows || columns >= this.columns) {
-      return;
-    }
-    this.my2DArray[rows][columns] = value;
-  }
-
-    初始化行数
- 
-  private initRows(rows: number): void {
-    if (rows < 1) {
-      return;
-    }
-    for (let i = 0; i < rows; i++) {
-      this.my2DArray.push(new Array<number>());
-    }
-  }
-  
-    初始化列数
-
-  private initColumns(columns: number, value: number): void {
-    if (columns < 1) {
-      return;
-    }
-    for (let i = 0; i < this.my2DArray.length; i++) {
-      for (let j = 0; j < columns; j++) {
-        this.my2DArray[i].push(value);
-      }
-    }
-  }
-
-    获取数组
-
-  public getArray(): Array<Array<number>> {
-    return this.my2DArray;
-  }
-}
-*/
 
 export class MineSweeperComponent implements OnInit {
-  minVal = 5;
+  minVal = 1 ;
   maxVal = 73;
   valueX = 9;
   valueY = 18;
   myMap: Array<Array<number>> = new Array<Array<number>>();
+  srcMap:Array<string>=new Array<string>(75*75);
 
+  srcDigit0='../../assets/dp2.svg';
 
   radioOptions = [{
     id: 1,
@@ -132,19 +65,19 @@ export class MineSweeperComponent implements OnInit {
         this.myMap[i].push(0);
       }
     }
+    for(let i=0;i<75*75;++i){
+      this.srcMap[i]=this.srcDigit0;
+    }
   }
   gogogo() {
     console.log(this.formData);
     console.log(this.formData.radioValue.id === 4);
   }
 
-  mine(x: number, y: number) {
-    if(this.myMap[x][y]==3){
+  mine(x: number, y: number,$event) {
+    console.log(x,y)
+    console.log($event.target)
 
-
-    }else if(this.myMap[x][y]==2){
-
-    }
   }
 
 }

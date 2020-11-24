@@ -1,10 +1,11 @@
-import { Component, OnInit ,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { DValidateRules } from 'ng-devui/form';
 
 import { FormControl, FormGroup } from '@angular/forms';
 import { DFormGroupRuleDirective } from 'ng-devui/form';
+import { ConnectService } from '../connect.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { DFormGroupRuleDirective } from 'ng-devui/form';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit{
+export class SignupComponent implements OnInit {
   singleSelectData = null;
 
   formData = {
@@ -83,7 +84,9 @@ export class SignupComponent implements OnInit{
 
   msgs: Array<Object> = [];
 
-  constructor() { }
+  constructor(
+    private mineHttp: ConnectService
+  ) { }
 
   ngOnInit() {
     this.userFormGroup.valueChanges.subscribe((val) => {
@@ -95,12 +98,11 @@ export class SignupComponent implements OnInit{
     // do something for submitting
     if (this.userFormDir.isReady) {
       console.log(this.formData);
-      of(this.formData).pipe(
-        map((val) => 'success'),  // 模拟接口处理
-        delay(500)
-      ).subscribe((res) => {
-        if (res === 'success') {
+      this.mineHttp.signUp(this.formData.userName, this.formData.password).subscribe((res) => {
+        if (res.status === 'success') {
           this.showToast('success', '成功', '注册成功');
+        }else{
+          this.showToast('fail', '失败', res.msg);
         }
       });
     } else {

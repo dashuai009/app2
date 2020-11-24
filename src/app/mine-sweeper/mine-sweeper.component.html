@@ -45,12 +45,11 @@
     </div>
 
     <table>
-      <ng-container *ngFor="let rowItem of myMap;let i=index">
+      <ng-container *ngFor="let rowItem of myMap;let i=index">      
         <tr *ngIf="i<formData.radioValue.X">
           <ng-container *ngFor="let it of rowItem;let j=index">
             <td *ngIf="j<formData.radioValue.Y">
-              <d-button bsStyle='primary' bsSize='sm' [width]="12" X=`{{i}}` Y=`{{j}}`
-                (btnClick)="mine(i,j)">{{it}}</d-button>
+              <img class="cell" [src]="srcMap[i*formData.radioValue.Y+j]" (click)="mine(i,j,$event)" >
             </td>
           </ng-container>
         </tr>

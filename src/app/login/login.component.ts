@@ -2,17 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { DValidateRules } from 'ng-devui/form';
+import { ConnectService } from '../connect.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  constructor(
+    private mineHttp: ConnectService
+  ) { }
+
+  ngOnInit(): void {
+  }
 
   msgs: Array<Object> = [];
 
-  existUsernames = ['123', '123456', 'DevUI'];
+  existUsernames = ['test'];
 
   formData = {
     userName: '',
@@ -49,16 +56,16 @@ export class LoginComponent {
     };
   }
   submitForm({ valid, directive }) {
-    console.log(directive);
+    //console.log(directive);
     // do something for submitting
     if (valid) {
       console.log(this.formData);
-      of(this.formData).pipe(
-        map((val) => 'success'),  // 模拟接口处理
-        delay(500)
-      ).subscribe((res) => {
-        if (res === 'success') {
-          this.showToast('success', '成功', '注册成功');
+      this.mineHttp.logIn(this.formData.userName, this.formData.password).subscribe((res) => {
+        console.log(res);
+        if (res.status === 'success') {
+          this.showToast('success', '成功', '登陆成功');
+        }else if(res.status === 'fail'){
+          this.showToast('warn', '失败', res.msg);
         }
       });
     } else {

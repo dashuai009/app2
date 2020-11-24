@@ -4,6 +4,7 @@ import { AsideAndContentComponent } from './aside-and-content/aside-and-content.
 import { LoginComponent } from './login/login.component';
 import { MineSweeperComponent } from './mine-sweeper/mine-sweeper.component';
 import { SignupComponent } from './signup/signup.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', component: AsideAndContentComponent },
