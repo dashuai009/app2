@@ -1,4 +1,5 @@
 <d-content>
+  <d-toast [value]="msgs"></d-toast>
   <div class="inner-content">
     <form dForm [layout]="'horizontal'" ngForm>
       <d-form-item>
@@ -35,14 +36,10 @@
       </d-form-item>
       <d-form-operation>
         <d-button bsStyle="stress" class="mr-element-spacing" circled="true" style="margin-right: 4px;"
-          (btnClick)="gogogo()">提交</d-button>
-        <d-button bsStyle="common" circled="true">取消</d-button>
+          (btnClick)="gogogo()">开始游戏</d-button>
+        <d-button bsStyle="common" circled="true" disabled="true">取消游戏</d-button>
       </d-form-operation>
     </form>
-    <div>
-      <span class="text">{{formData.radioValue.X}}</span>
-      <span class="text">{{formData.radioValue.Y}}</span>
-    </div>
 
     <table>
       <ng-container *ngFor="let rowItem of myMap;let i=index">      

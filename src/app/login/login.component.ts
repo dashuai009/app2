@@ -63,11 +63,11 @@ export class LoginComponent implements OnInit {
     // do something for submitting
     if (valid) {
       console.log(this.formData);
-      console.log(myhaha.sha256_digest(this.formData.password));
+      //console.log(myhaha.sha256_digest(this.formData.password));
       this.mineHttp.logIn(this.formData.userName, myhaha.sha256_digest(this.formData.password)).subscribe((res) => {
         console.log(res);
         if (res.status === 'success') {
-
+          this.mineHttp.showUser(this.formData.userName,myhaha.sha256_digest(this.formData.password));
           this.showToast('success', '成功', '登陆成功');
         }else if(res.status === 'fail'){
           this.showToast('warn', '失败', res.msg);

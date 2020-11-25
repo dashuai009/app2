@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { ConnectService } from '../connect.service';
 import { BrowserModule } from '@angular/platform-browser';
 
-import '../../assets/Digit0.svg'; 
+import '../../assets/Digit0.svg';
 
 
 @Component({
@@ -15,14 +15,19 @@ import '../../assets/Digit0.svg';
 
 
 export class MineSweeperComponent implements OnInit {
-  minVal = 1 ;
+  msgs: Array<Object> = [];
+  minVal = 1;
   maxVal = 73;
   valueX = 9;
   valueY = 18;
   myMap: Array<Array<number>> = new Array<Array<number>>();
-  srcMap:Array<string>=new Array<string>(75*75);
+  srcMap: Array<string> = new Array<string>(75 * 75);
 
-  srcDigit0='../../assets/dp2.svg';
+  gameStatus: string;
+
+  srcInit = '../../assets/dp2.svg';
+  srcD: Array<string> = new Array<string>(12);
+
 
   radioOptions = [{
     id: 1,
@@ -53,7 +58,7 @@ export class MineSweeperComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private mineHttp:ConnectService
+    private mineHttp: ConnectService
   ) { }
 
   ngOnInit(): void {
@@ -65,19 +70,60 @@ export class MineSweeperComponent implements OnInit {
         this.myMap[i].push(0);
       }
     }
-    for(let i=0;i<75*75;++i){
-      this.srcMap[i]=this.srcDigit0;
+    for (let i = 0; i < 75 * 75; ++i) {
+      this.srcMap[i] = this.srcInit;
     }
+    for (let i = 0; i <=9; ++i) {
+      this.srcD[i] = '../../assets/Digit' + i + '.svg';
+    }
+  }
+  changeMap(a) {
+    this.gameStatus = a.result;
+    let tmpX = this.formData.radioValue.X;
+    let tmpY = this.formData.radioValue.Y;
+    console.log('行列', tmpX, tmpY);
+    console.log(a);
+    for (let i = 0; i < tmpX; ++i) {
+      for (let j = 0; j < tmpY; ++j) {
+        if (a.map[i * tmpY + j] == -1) {
+          this.srcMap[i * tmpY + j] = this.srcInit;
+        } else {
+          this.srcMap[i * tmpY + j] = this.srcD[a.map[i * tmpY + j]];
+        }
+      }
+    }
+    //console.log(this.srcMap);
   }
   gogogo() {
     console.log(this.formData);
-    console.log(this.formData.radioValue.id === 4);
+    this.mineHttp.startGame(this.formData.radioValue.X, this.formData.radioValue.Y, this.formData.radioValue.L).subscribe((res) => {
+      console.log(res);
+      if (res.status == 'success') {
+        this.changeMap(res.msg);
+        this.showToast('success', 'GoGoGo', '开始游戏~~~');
+      } else if (res.status == 'fail') {
+        this.showToast('error', '错误', res.msg);
+      }
+    })
   }
 
-  mine(x: number, y: number,$event) {
-    console.log(x,y)
+  mine(x: number, y: number, $event) {
+    console.log(x, y)
     console.log($event.target)
+    this.mineHttp.clickHere(x,y).subscribe((res)=>{
+      console.log(res);
+      if(res.status=='success'){
+        this.changeMap(res.msg);  
+      }else{
+        this.showToast('error', '错误', res.msg);
+      }
+    })
 
   }
+
+  showToast(type: any, title: string, msg: string) {
+    this.msgs = [{ severity: type, summary: title, detail: msg }];
+  }
+
 
 }

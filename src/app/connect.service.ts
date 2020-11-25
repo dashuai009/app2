@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { ConstantPool } from '@angular/compiler';
 
 
 /*
@@ -24,14 +25,18 @@ const myOptions = {
   //responseType: 'json' as const
 };
 
-export interface logInAndSignUpMsg {
+export interface statusAndMsg {
   status: string,
   msg: string
 }
+
 @Injectable({
   providedIn: 'root'
 })
 export class ConnectService {
+  flag: boolean = false;
+  showUserName: string = "Mr.Nobody";
+  private hashpwd: string;
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -43,36 +48,47 @@ export class ConnectService {
       console.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
+
+
       return of(result as T);
     };
   }
 
   constructor(private myConnect: HttpClient) { }
 
-
-  logIn(userName: string, pwdHash: string): Observable<logInAndSignUpMsg> {
+  showUser(userName: string, pwdHash: string) {
+    this.flag = true;
+    this.showUserName = userName;
+    this.hashpwd = pwdHash;
+  }
+  logIn(userName: string, pwdHash: string): Observable<statusAndMsg> {
     let myBody = { "userName": userName, "pwdHash": pwdHash };
-    return this.myConnect.post<logInAndSignUpMsg>(api + '/login', myBody, myOptions)
+    return this.myConnect.post<statusAndMsg>(api + '/login', myBody, myOptions)
       .pipe(
         //retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       )
 
   }
-  signUp(userName: string, pwdHash: string): Observable<logInAndSignUpMsg> {
+  signUp(userName: string, pwdHash: string): Observable<statusAndMsg> {
     let myBody = { "userName": userName, "pwdHash": pwdHash };
-    return this.myConnect.post<logInAndSignUpMsg>(api + '/signup', myBody, myOptions)
+    return this.myConnect.post<statusAndMsg>(api + '/signup', myBody, myOptions)
       .pipe(
         //retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       )
   }
-  startGame(userName: string, pwdHash: string, X: number, Y: number): Observable<JSON> {
-    let myBody = { "userName": userName, "pwdHash": pwdHash ,"X":X,"Y":Y};
-    return this.myConnect.post<JSON>('/startGame', myBody, myOptions)
+  startGame(X: number, Y: number, L: number): Observable<statusAndMsg> {
+    console.log(this.flag, this.showUserName, this.hashpwd);
+    if (this.flag) {
+      let myBody = { "userName": this.showUserName, "pwdHash": this.hashpwd, "X": X, "Y": Y ,"L":L};
+      return this.myConnect.post<statusAndMsg>(api + '/startGame', myBody, myOptions);
+    } else {
+      return of({ status: 'fail', msg: '用户未登录' } as any);
+    }
   }
-  clickHere(userName: string, pwdHash: string, X: number, Y: number): Observable<JSON> {
-    let myBody = { "userName": userName, "pwdHash": pwdHash ,"X":X,"Y":Y};
-    return this.myConnect.post<JSON>('/clickHere', myBody, myOptions)
+  clickHere( X: number, Y: number): Observable<statusAndMsg> {
+    let myBody = { "userName": this.showUserName, "pwdHash": this.hashpwd, "X": X, "Y": Y };
+    return this.myConnect.post<statusAndMsg>(api+'/clickHere', myBody, myOptions)
   }
 }
