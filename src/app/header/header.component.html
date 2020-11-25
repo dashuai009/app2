@@ -2,7 +2,7 @@
   <div class="app-bar">
     <header>
       <a target="_self" href="/">
-        <img src="../../assets/fan.ico"/>
+        <img src="../../assets/fan.ico" />
         <span class="text">dashuai</span>
       </a>
       <div class="main-nav">
@@ -12,16 +12,24 @@
         <a class="main-nav-item" routerLink="/minesweeper" routerLinkActive="active">
           <span>MineSweeper</span>
         </a>
-        <a class="main-nav-item" target="_blank" rel="noopener noreferrer"
-          href="https://github.com/dashuai009/app2" routerLinkActive="active">
+        <a class="main-nav-item" target="_blank" rel="noopener noreferrer" href="https://github.com/dashuai009/app2"
+          routerLinkActive="active">
           <span>版本历程</span>
         </a>
-        <a class="main-nav-item" routerLink="/login" routerLinkActive="active">
-          <span>Log In~~~~</span>
-        </a>
-        <a class="main-nav-item" routerLink="/signup" routerLinkActive="active">
-          <span>Sign Up^-^</span>
-        </a>
+
+        <ng-container *ngIf="this.mineHttp.flag==false; else elseBlock">
+          <a class="main-nav-item" routerLink="/login" routerLinkActive="active">
+            <span>Log In~~~~</span>
+          </a>
+          <a class="main-nav-item" routerLink="/signup" routerLinkActive="active">
+            <span>Sign Up^-^</span>
+          </a>
+        </ng-container>
+        <ng-template #elseBlock>
+          <a class="main-nav-item">
+            <span>用户名:{{this.mineHttp.showUserName}}</span>
+          </a>
+        </ng-template>
         <span class="main-nav-item">
           <app-theme-picker></app-theme-picker>
         </span>

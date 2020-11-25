@@ -1,7 +1,8 @@
-import { Component, OnInit ,NgZone,Renderer2} from '@angular/core';
+import { Component, OnInit, NgZone, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-import {fromEvent,Subscription }from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { I18nService } from 'ng-devui/i18n';
+import { ConnectService } from '../connect.service';
 
 @Component({
   selector: 'app-header',
@@ -12,9 +13,9 @@ export class HeaderComponent implements OnInit {
   logoSrc = '../../../favicon.ico';
   clickSub: Subscription = new Subscription();
 
-  constructor(private renderer2: Renderer2, private ngZone: NgZone, private router: Router, private i18n: I18nService) { 
+  constructor(private renderer2: Renderer2, private ngZone: NgZone, private router: Router, private i18n: I18nService, public mineHttp:ConnectService) {
     const oldHandler = this.router.errorHandler;
-    this.router.errorHandler =  (err: any) => {
+    this.router.errorHandler = (err: any) => {
       // 加载失败的时候刷新重试一次
       if (err.stack && err.stack.indexOf('Error: Loading chunk') >= 0) {
         if (localStorage.getItem('lastChunkError') !== err.stack) {
@@ -49,7 +50,7 @@ export class HeaderComponent implements OnInit {
         }
       }));
     });
-    
+
   }
 
 }
