@@ -17,25 +17,25 @@ import '../../assets/Digit0.svg';
 
 
 export class MineSweeperComponent implements OnInit {
-  msgs: Array<Object> = [];
-  minVal = 1;
-  maxVal = 73;
-  valueX = 9;
-  valueY = 18;
-  cntOver = 0;
-  cntTag = 0;
-  myMap: Array<Array<number>> = new Array<Array<number>>();
-  srcMap: Array<string> = new Array<string>(75 * 75);
-  clickAble: Array<boolean> = new Array<boolean>(75 * 75);
+  msgs: Array<Object> = [];//消息数组
+  minVal = 1;//行（列）数最小值
+  maxVal = 73;//行列数最大值
+  valueX = 9;//自定义行数
+  valueY = 18;//自定义列数
+  cntOver = 0;//已经翻开的格子数百分比
+  cntTag = 0;//已经标记的格子数百分比
+  myMap: Array<Array<number>> = new Array<Array<number>>();//用来控制雷区行列，暂时没有想到好的方法
+  srcMap: Array<string> = new Array<string>(75 * 75);//雷区的图片
+  clickAble: Array<boolean> = new Array<boolean>(75 * 75);//格子是否可点击
 
-  gameStatus: string;
+  gameStatus: string;//游戏状态
 
-  srcInit = '../../assets/dp2.svg';
-  srcRight = '../../assets/dp.svg';
-  srcD: Array<string> = new Array<string>(12);
+  srcInit = '../../assets/dp2.svg';//初始格子的图片
+  srcRight = '../../assets/dp.svg';//右键点击之后的图片
+  srcD: Array<string> = new Array<string>(12);//数字图片
 
 
-  radioOptions = [{
+  radioOptions = [{//难度选择用到的按钮数值
     id: 1,
     label: "简单",
     msg: "简单：7行7列，10颗雷~",
@@ -64,17 +64,17 @@ export class MineSweeperComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private mineHttp: ConnectService,
-    private dialogService: DialogService
+    private mineHttp: ConnectService,//http服务
+    private dialogService: DialogService//消息展示服务
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {//组件初始化
     //document.oncontextmenu = function () { return false; };
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 75; i++) {
       this.myMap.push(new Array<number>());
     }
-    for (let i = 0; i < 25; i++) {
-      for (let j = 0; j < 25; ++j) {
+    for (let i = 0; i < 75; i++) {
+      for (let j = 0; j < 75; ++j) {
         this.myMap[i].push(0);
       }
     }
@@ -86,7 +86,7 @@ export class MineSweeperComponent implements OnInit {
       this.srcD[i] = '../../assets/Digit' + i + '.svg';
     }
   }
-  openSuccessDialog(dialogtype?: string) {
+  openSuccessDialog(dialogtype?: string) {//展示一个成功弹窗消息
     const results = this.dialogService.open({
       id: 'dialog-service',
       width: '346px',
@@ -108,7 +108,7 @@ export class MineSweeperComponent implements OnInit {
     });
   }
 
-  openFailedDialog(dialogtype?: string) {
+  openFailedDialog(dialogtype?: string) {//展示一个失败的消息弹窗
     const results = this.dialogService.open({
       id: 'dialog-service',
       width: '346px',
@@ -130,7 +130,7 @@ export class MineSweeperComponent implements OnInit {
     });
   }
 
-  initMap() {
+  initMap() {//初始化地图
     this.cntOver = 0;
     this.cntTag = 0;
     this.gameStatus = "playing";
@@ -144,7 +144,7 @@ export class MineSweeperComponent implements OnInit {
     }
   }
 
-  changeMap(result, map) {
+  changeMap(result, map) {//改变地图状态
     this.gameStatus = result;
     let tmpX = this.formData.radioValue.X;
     let tmpY = this.formData.radioValue.Y;
@@ -171,7 +171,7 @@ export class MineSweeperComponent implements OnInit {
     this.cntTag = tot2 / this.formData.radioValue.L * 100;
     //console.log(this.srcMap);
   }
-  gogogo() {
+  gogogo() {//开始一局游戏
     console.log(this.formData);
     this.mineHttp.startGame(this.formData.radioValue.X, this.formData.radioValue.Y, this.formData.radioValue.L).subscribe((res) => {
       console.log(res);
@@ -186,7 +186,7 @@ export class MineSweeperComponent implements OnInit {
 
 
 
-  mine(x: number, y: number, $event) {
+  mine(x: number, y: number, $event) {//点击某个格子
     console.log(x, y)
     console.log($event)
     if (this.clickAble[x * this.formData.radioValue.Y + y]) {
@@ -209,7 +209,7 @@ export class MineSweeperComponent implements OnInit {
       }
     }
   }
-  rightClick(x: number, y: number, $event) {
+  rightClick(x: number, y: number, $event) {//右键标记
     $event.preventDefault();
     if (this.cntTag + 100 / this.formData.radioValue.L > 100) {
       this.showToast('warn', '罗老师，别这样~', '标记的太多了');
@@ -221,7 +221,7 @@ export class MineSweeperComponent implements OnInit {
       }
   }
 
-  showToast(type: any, title: string, msg: string) {
+  showToast(type: any, title: string, msg: string) {//消息
     this.msgs = [{ severity: type, summary: title, detail: msg }];
   }
 
