@@ -29,7 +29,12 @@ export interface statusAndMsg {
   status: string,
   msg: string
 }
+export interface statusAndMsgAndMap {
+  status: string,//是否成功返回
+  msg: string,//失败返回：信息   成功返回：棋局状态
+  map: Array<number>
 
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -78,17 +83,17 @@ export class ConnectService {
         catchError(this.handleError) // then handle the error
       )
   }
-  startGame(X: number, Y: number, L: number): Observable<statusAndMsg> {
+  startGame(X: number, Y: number, L: number): Observable<statusAndMsgAndMap> {
     console.log(this.flag, this.showUserName, this.hashpwd);
     if (this.flag) {
-      let myBody = { "userName": this.showUserName, "pwdHash": this.hashpwd, "X": X, "Y": Y ,"L":L};
-      return this.myConnect.post<statusAndMsg>(api + '/startGame', myBody, myOptions);
+      let myBody = { "userName": this.showUserName, "pwdHash": this.hashpwd, "X": X, "Y": Y, "L": L };
+      return this.myConnect.post<statusAndMsgAndMap>(api + '/startGame', myBody, myOptions);
     } else {
       return of({ status: 'fail', msg: '用户未登录' } as any);
     }
   }
-  clickHere( X: number, Y: number): Observable<statusAndMsg> {
+  clickHere(X: number, Y: number): Observable<statusAndMsgAndMap> {
     let myBody = { "userName": this.showUserName, "pwdHash": this.hashpwd, "X": X, "Y": Y };
-    return this.myConnect.post<statusAndMsg>(api+'/clickHere', myBody, myOptions)
+    return this.myConnect.post<statusAndMsgAndMap>(api + '/clickHere', myBody, myOptions)
   }
 }
