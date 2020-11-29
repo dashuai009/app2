@@ -21,6 +21,10 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DebounceClickDirective } from './debounce-click.directive';
+import { MineInfoComponent } from './aside-and-content/mine-info/mine-info.component';
+import { RuleComponent } from './aside-and-content/rule/rule.component';
+import { ImgRuleComponent } from './aside-and-content/img-rule/img-rule.component';
+import { UserComponent } from './aside-and-content/user/user.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { DebounceClickDirective } from './debounce-click.directive';
     MineSweeperComponent,
     LoginComponent,
     SignupComponent,
-    DebounceClickDirective
+    DebounceClickDirective,
+    MineInfoComponent,
+    RuleComponent,
+    ImgRuleComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

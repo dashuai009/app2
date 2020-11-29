@@ -1,6 +1,6 @@
 <d-layout>
-  <d-aside>
-    <d-accordion [data]="menu" class="menu"></d-accordion>
+  <d-aside><!--左边的抽屉式导航栏-->
+    <d-accordion [data]="menu" class="menu" [linkType]="'routerLink'"></d-accordion>
   </d-aside>
   <d-content>
     <!-- <d-breadcrumb>
@@ -12,6 +12,8 @@
           </d-breadcrumb-item>
         </d-breadcrumb>  -->
     <div class="inner-content">
+      <router-outlet></router-outlet>
+      <!--导航出口-->
       <!--app-mine-sweeping></app-mine-sweeping>-->
     </div>
   </d-content>

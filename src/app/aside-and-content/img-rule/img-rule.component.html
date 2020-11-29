@@ -1,0 +1,8 @@
+<!-- 自动展示几个图片，走马灯式-->
+<section>
+    <d-carousel [height]="height" [autoplay]="autoplay" [autoplaySpeed]="autoplaySpeed">
+      <d-carousel-item *ngFor="let i of imageArray">
+        <img style="width: 75%; height: 100%;" src="{{ i }}" alt="" />
+      </d-carousel-item>
+    </d-carousel>
+  </section>
