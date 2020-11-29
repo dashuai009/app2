@@ -40,13 +40,31 @@
         <d-button bsStyle="common" circled="true" disabled="true">取消游戏</d-button>
       </d-form-operation>
     </form>
-
+    <section style="text-align: center;">
+      <h4>完成进度</h4>
+      <div class="progress-container">
+        <d-progress [isCircle]="true" [percentage]="cntOver">
+          <ng-template let-percentage="percentage">
+            <span class="icon-position">已翻开地区</span>
+          </ng-template>
+        </d-progress>
+      </div>
+      <div class="progress-container">
+        <d-progress [isCircle]="true" [percentage]="cntTag">
+          <ng-template let-percentage="percentage">
+            <span class="icon-position">已标记地区</span>
+          </ng-template>
+        </d-progress>
+      </div>
+    </section>
     <table>
-      <ng-container *ngFor="let rowItem of myMap;let i=index">      
+      <ng-container *ngFor="let rowItem of myMap;let i=index">
         <tr *ngIf="i<formData.radioValue.X">
           <ng-container *ngFor="let it of rowItem;let j=index">
             <td *ngIf="j<formData.radioValue.Y">
-              <img class="cell" [src]="srcMap[i*formData.radioValue.Y+j]" (click)="mine(i,j,$event)" >
+              <img class="cell" [src]="srcMap[i*formData.radioValue.Y+j]" (contextmenu)="rightClick(i,j,$event)"
+               appDebounceClick (debounceClick)="mine(i,j,$event)"
+              >
             </td>
           </ng-container>
         </tr>
