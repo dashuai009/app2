@@ -20,6 +20,7 @@ import {FormsModule} from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DebounceClickDirective } from './debounce-click.directive';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     FootComponent,
     MineSweeperComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    DebounceClickDirective
   ],
   imports: [
     BrowserModule,
