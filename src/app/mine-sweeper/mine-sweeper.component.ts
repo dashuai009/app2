@@ -148,8 +148,8 @@ export class MineSweeperComponent implements OnInit {
     this.gameStatus = result;
     let tmpX = this.formData.radioValue.X;
     let tmpY = this.formData.radioValue.Y;
-    console.log('行列', tmpX, tmpY);
-    console.log(map);
+    //console.log('行列', tmpX, tmpY);
+    //console.log(map);
     let tot = 0;
     let tot2 = 0;
     for (let i = 0; i < tmpX; ++i) {
@@ -172,9 +172,9 @@ export class MineSweeperComponent implements OnInit {
     //console.log(this.srcMap);
   }
   gogogo() {//开始一局游戏
-    console.log(this.formData);
+    //console.log(this.formData);
     this.mineHttp.startGame(this.formData.radioValue.X, this.formData.radioValue.Y, this.formData.radioValue.L).subscribe((res) => {
-      console.log(res);
+      //console.log(res);
       if (res.status == 'success') {
         this.initMap();
         this.showToast('success', 'GoGoGo', '开始游戏~~~');
@@ -187,14 +187,14 @@ export class MineSweeperComponent implements OnInit {
 
 
   mine(x: number, y: number, $event) {//点击某个格子
-    console.log(x, y)
-    console.log($event)
+    //console.log(x, y)
+    //console.log($event)
     if (this.clickAble[x * this.formData.radioValue.Y + y]) {
       if (this.srcMap[x * this.formData.radioValue.Y + y] == this.srcRight) {
         this.srcMap[x * this.formData.radioValue.Y + y] = this.srcInit;
       } else {
         this.mineHttp.clickHere(x, y).subscribe((res) => {
-          console.log(res);
+          //console.log(res);
           if (res.status == 'success') {
             if (res.msg == 'success') {
               this.openSuccessDialog('success');

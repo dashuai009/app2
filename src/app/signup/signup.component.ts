@@ -98,9 +98,9 @@ export class SignupComponent implements OnInit {
   submitForm() {
     // do something for submitting
     if (this.userFormDir.isReady) {
-      console.log(this.formData);
+      //console.log(this.formData);
       this.mineHttp.signUp(this.formData.username, myhaha.sha256_digest(this.formData.password)).subscribe((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.status === 'success') {
           this.showToast('success', '成功', '注册成功');
         }else{

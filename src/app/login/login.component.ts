@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
     //console.log(directive);
     // do something for submitting
     if (valid) {
-      console.log(this.formData);
+      //console.log(this.formData);
       //console.log(myhaha.sha256_digest(this.formData.password));
       this.mineHttp.logIn(this.formData.userName, myhaha.sha256_digest(this.formData.password)).subscribe((res) => {
         console.log(res);
