@@ -80,7 +80,7 @@ SHA256
 - npm i
 - ng build
 - 在node_modules/ng-devui/style-var/devui-var.scss中加入
-  ```css
+```css
 
 $font-title-weight: bold;
 $font-content-weight: normal;
@@ -98,7 +98,7 @@ $line-height-base: 1.5;
   font-weight: $font-title-weight;
   line-height: $line-height-base;
 }
-  ```
+```
   如果您觉得不应改node_modules，那么，您是对的。
 
 - ng s -o --host=0.0.0.0 --port=4200
