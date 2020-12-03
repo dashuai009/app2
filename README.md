@@ -64,7 +64,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ### connect.service
 
-与后端通信服务，用户名和密码也缓存在这里
+与后端通信服务，用户名和密码也缓存在这里，目标服务器是我自己的，已经关了，改一下api
+后端参考https://github.com/dashuai009/back_end
 
 ### debounce-click.directive
 
